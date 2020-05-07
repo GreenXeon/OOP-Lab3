@@ -8,8 +8,8 @@ namespace Laba2
 {
     class Salad : Dish
     {
-        protected Greens greens;
-        protected Souce souce;
+        public Greens greens;
+        public Souce souce;
 
         public Salad(string name, int price, int calories, string greens, string souce)
         {

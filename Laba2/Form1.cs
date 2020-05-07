@@ -146,23 +146,140 @@ namespace Laba2
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            if (listBox2.SelectedIndex != -1)
+            if ((listBox2.SelectedIndex != -1) && CheckData())
             {
-                MessageBox.Show("Updated!");
+                Dishes[listBox2.SelectedIndex].Name = textBoxName.Text.ToString();
+                Dishes[listBox2.SelectedIndex].Price = Convert.ToInt32(textBoxPrice.Text);
+                Dishes[listBox2.SelectedIndex].Calories = Convert.ToInt32(textBoxCalories.Text);
+                if (Dishes[listBox2.SelectedIndex].GetType().ToString() == "Salad")
+                {
+                    Salad curr = Dishes[listBox2.SelectedIndex] as Salad;
+                    curr.greens.GreensType = textBox3.Text.ToString();
+                    curr.souce.SouceType = textBox2.Text.ToString();
+                }
+                else
+                if (Dishes[listBox2.SelectedIndex].GetType().ToString() == "MeatSalad")
+                {
+                    MeatSalad curr = Dishes[listBox2.SelectedIndex] as MeatSalad;
+                    curr.greens.GreensType = textBox3.Text.ToString();
+                    curr.souce.SouceType = textBox2.Text.ToString();
+                    curr.meat.MeatType = textBox1.Text.ToString();
+                }
+                else
+                if (Dishes[listBox2.SelectedIndex].GetType().ToString() == "FirstCourse")
+                {
+                    FirstCourse curr = Dishes[listBox2.SelectedIndex] as FirstCourse;
+                    curr.souce.SouceType = textBox2.Text.ToString();
+                }
+                MessageBox.Show($"Блюдо {Dishes[listBox2.SelectedIndex].Name} успешно обновлено!");
+                listBoxInfo.Items.Clear();
+                
             }
+            else
+                MessageBox.Show("Выберите блюдо или введите данные!");
         }
 
         private void listBox2_MouseClick(object sender, MouseEventArgs e)
         {
-            listBoxInfo.Items.Clear();
-            listBoxInfo.Items.Add(Dishes[listBox2.SelectedIndex].Name);
-            listBoxInfo.Items.Add(Dishes[listBox2.SelectedIndex].Price.ToString());
-            listBoxInfo.Items.Add(Dishes[listBox2.SelectedIndex].Name.ToString());
-            if (Dishes[listBox2.SelectedIndex] is Salad)
+            if (listBox2.SelectedIndex != -1)
             {
-                Salad curr = Dishes[listBox2.SelectedIndex] as Salad;
-                   
+                listBoxInfo.Items.Clear();
+                listBoxInfo.Items.Add($"Название - {Dishes[listBox2.SelectedIndex].Name}");
+                textBoxName.Text = Dishes[listBox2.SelectedIndex].Name;
+                listBoxInfo.Items.Add($"Цена - {Dishes[listBox2.SelectedIndex].Price.ToString()}");
+                textBoxPrice.Text = Dishes[listBox2.SelectedIndex].Price.ToString();
+                listBoxInfo.Items.Add($"Калории - {Dishes[listBox2.SelectedIndex].Calories.ToString()}");
+                textBoxCalories.Text = Dishes[listBox2.SelectedIndex].Calories.ToString();
+                if (Dishes[listBox2.SelectedIndex] is MeatSalad)
+                {
+                    MeatSalad curr = Dishes[listBox2.SelectedIndex] as MeatSalad;
+
+                    listBoxInfo.Items.Add($"Зелень - {curr.greens.GreensType}");
+                    listBoxInfo.Items.Add($"Соус - {curr.souce.SouceType}");
+                    listBoxInfo.Items.Add($"Мясо - {curr.meat.MeatType}");
+
+                    label8.Visible = true;
+                    label7.Visible = true;
+                    label6.Visible = true;
+                    textBox3.Visible = true;
+                    label8.Text = "Зелень";
+                    textBox2.Visible = true;
+                    label7.Text = "Соус";
+                    textBox1.Visible = true;
+                    label6.Text = "Мясо";
+
+                    comboBoxTypes.SelectedIndex = 2;
+                    textBox3.Text = curr.greens.GreensType.ToString();
+                    textBox2.Text = curr.souce.SouceType.ToString();
+                    textBox1.Text = curr.meat.MeatType.ToString();
+                }
+                else
+                if (Dishes[listBox2.SelectedIndex] is Salad)
+                {
+                    Salad curr = Dishes[listBox2.SelectedIndex] as Salad;
+                    listBoxInfo.Items.Add($"Зелень - {curr.greens.GreensType}");
+                    listBoxInfo.Items.Add($"Соус - {curr.souce.SouceType}");
+
+                    label8.Visible = true;
+                    label7.Visible = true;
+                    label6.Visible = false;
+                    textBox3.Visible = true;
+                    label8.Text = "Зелень";
+                    textBox2.Visible = true;
+                    label7.Text = "Соус";
+                    textBox1.Visible = false;
+
+                    comboBoxTypes.SelectedIndex = 1;
+                    textBox3.Text = curr.greens.GreensType.ToString();
+                    textBox2.Text = curr.souce.SouceType.ToString();
+                }
+                else
+                if (Dishes[listBox2.SelectedIndex] is FirstCourse)
+                {
+                    FirstCourse curr = Dishes[listBox2.SelectedIndex] as FirstCourse;
+                    listBoxInfo.Items.Add($"Соус - {curr.souce.SouceType}");
+
+                    label8.Visible = true;
+                    label7.Visible = false;
+                    label6.Visible = false;
+                    textBox3.Visible = true;
+                    label8.Text = "Соус";
+                    textBox2.Visible = false;
+                    textBox1.Visible = false;
+
+                    comboBoxTypes.SelectedIndex = 3;
+                    textBox3.Text = curr.souce.SouceType.ToString();
+                }
+                else
+                {
+                    label8.Visible = false;
+                    label7.Visible = false;
+                    label6.Visible = false;
+                    textBox3.Visible = false;
+                    textBox2.Visible = false;
+                    textBox1.Visible = false;
+                    comboBoxTypes.SelectedIndex = 0;
+                }
             }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedIndex != -1)
+            {
+                Dishes.RemoveAt(listBox2.SelectedIndex);
+                listBox2.Items.RemoveAt(listBox2.SelectedIndex);
+                listBoxInfo.Items.Clear();
+                MessageBox.Show("Блюдо успешно удалено!");
+                ClearBoxes();
+            }
+            else
+                MessageBox.Show("Выберите блюдо для удаления!");
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            ClearBoxes();
         }
     }
 }

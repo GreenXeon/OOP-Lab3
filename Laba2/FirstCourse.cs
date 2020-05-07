@@ -8,7 +8,7 @@ namespace Laba2
 {
     class FirstCourse : Dish
     {
-        protected Souce souce;
+        public Souce souce;
         public FirstCourse(string name, int price, int calories, string souce)
         {
             this.Name = name;

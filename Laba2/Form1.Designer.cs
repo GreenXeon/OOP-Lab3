@@ -47,6 +47,7 @@
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.listBoxInfo = new System.Windows.Forms.ListBox();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonCreate
@@ -206,6 +207,7 @@
             this.buttonDelete.TabIndex = 18;
             this.buttonDelete.Text = "Удалить";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // listBoxInfo
             // 
@@ -216,11 +218,22 @@
             this.listBoxInfo.Size = new System.Drawing.Size(161, 148);
             this.listBoxInfo.TabIndex = 19;
             // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(344, 76);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(133, 52);
+            this.buttonClear.TabIndex = 20;
+            this.buttonClear.Text = "Очистить поля";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 516);
+            this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.listBoxInfo);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonUpdate);
@@ -241,7 +254,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.buttonCreate);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "CRUD";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -268,6 +281,7 @@
         private System.Windows.Forms.Button buttonUpdate;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.ListBox listBoxInfo;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
 

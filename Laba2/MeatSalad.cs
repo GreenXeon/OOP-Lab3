@@ -8,7 +8,7 @@ namespace Laba2
 {
     class MeatSalad : Salad
     {
-        protected Meat meat;
+        public Meat meat;
         public MeatSalad(string name, int price, int calories, string greens, string souce, string meat)
         {
             this.Name = name;
