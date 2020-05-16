@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Laba2
 {
+    [Serializable]
     class Dish
     {
         protected string _name;

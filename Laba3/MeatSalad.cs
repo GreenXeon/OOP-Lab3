@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Laba2
 {
+    [Serializable]
     class MeatSalad : Salad
     {
         public Meat meat;
