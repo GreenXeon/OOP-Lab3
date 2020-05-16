@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0F8A85AB-DBEC-4CEA-AEB7-2BE06F3A030C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Laba2</RootNamespace>
-    <AssemblyName>Laba2</AssemblyName>
+    <RootNamespace>Laba3</RootNamespace>
+    <AssemblyName>Laba3</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -87,6 +87,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
