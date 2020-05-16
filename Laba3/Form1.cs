@@ -32,6 +32,7 @@ namespace Laba2
             else return true;
         }
 
+
         public void ClearBoxes()
         {
             textBoxName.Text = "";
