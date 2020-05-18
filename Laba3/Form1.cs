@@ -11,7 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Text.Json;
 
-namespace Laba2
+namespace Laba3
 {
     public partial class Form1 : Form
     {
@@ -312,25 +312,41 @@ namespace Laba2
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string fileName = saveFileDialog1.FileName;
-                using (FileStream fs = new FileStream(fileName, FileMode.Create))
-                {
+                
                     if (comboBoxSer.SelectedIndex == 0)
-                        binForm.Serialize(fs, Dishes);
-                    else
+                    {
+                        BinarySerialization binSerial = new BinarySerialization();
+                        /*List<object> dishes = new List<object>();
+                        foreach (object dish in Dishes)
+                        {
+                            dishes.Add(dish);
+                        }*/
+                        string res = binSerial.MySerialize(Dishes, fileName);
+                        if (res == "OK")
+                            MessageBox.Show("Объект успешно сериализован и сохранён!", "Успех!");
+                        else
+                            MessageBox.Show($"Возникла ошибка:{res}.", "Ошибка!");
+                    }
                     if (comboBoxSer.SelectedIndex == 1)
                     {
-                        string jsonString = JsonSerializer.Serialize<List<Dish>>(Dishes);
-                        byte[] arr = Encoding.Default.GetBytes(jsonString);
-                        fs.Write(arr, 0, arr.Length);
+                        JsonSerialization jsonSer = new JsonSerialization();                   
+                        string res = jsonSer.MySerialize(Dishes, fileName);
+                        if (res == "OK")
+                            MessageBox.Show("Объект успешно сериализован и сохранён!", "Успех!");
+                        else
+                            MessageBox.Show($"Возникла ошибка:{res}.", "Ошибка!");
                     }
                     else
+                    if (comboBoxSer.SelectedIndex == 2)
                     {
-                       // byte[] arr = Encoding.Default.GetBytes(Dishes);
-                    }
-                    MessageBox.Show("Объект успешно сериализован и сохранён.");
-                }
+                        TextSerialization textSerial = new TextSerialization();
+                        string res = textSerial.MySerialize(Dishes, fileName);
+                        if (res == "OK")
+                            MessageBox.Show("Объект успешно сериализован и сохранён!", "Успех!");
+                        else
+                            MessageBox.Show($"Возникла ошибка:{res}.", "Ошибка!");
+                }               
             }
-
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
@@ -342,28 +358,34 @@ namespace Laba2
             }
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                string fileName = openFileDialog1.FileName;
-                using (FileStream fs = new FileStream(fileName, FileMode.Open))
+                string fileName = openFileDialog1.FileName;  //deserialize
+
+                if (comboBoxSer.SelectedIndex == 0)
                 {
-                    if (comboBoxSer.SelectedIndex == 0)
-                    {
-                        List<Dish> newDishes = (List<Dish>)binForm.Deserialize(fs);
-                        Dishes = null;
-                        Dishes = newDishes;
-                    }
-                    else
-                    if (comboBoxSer.SelectedIndex == 1)
-                    {
-                        byte[] arr = new byte[fs.Length];
-                        fs.Read(arr, 0, arr.Length);
-                        string jsonBytes = Encoding.Default.GetString(arr);
-                        List<Dish> newDishes = JsonSerializer.Deserialize<List<Dish>>(jsonBytes);
-                        Dishes = null;
-                        Dishes = newDishes;
-                    }
+                    BinarySerialization binSerial = new BinarySerialization();
+                    List<Dish> dishes = binSerial.MyDeserialize(fileName);
+                    Dishes.Clear();
+                    Dishes = dishes;
+                }
+                else
+                if (comboBoxSer.SelectedIndex == 1)
+                {
+                    JsonSerialization jsonSerial = new JsonSerialization();
+                    List<Dish> dishes = jsonSerial.MyDeserialize(fileName);
+                    Dishes.Clear();
+                    Dishes = dishes;
+                }
+                else
+                if (comboBoxSer.SelectedIndex == 2)
+                {
+                    TextSerialization textSer = new TextSerialization();
+                    List<Dish> dishes = textSer.MyDeserialize(fileName);
+                    Dishes.Clear();
+                    Dishes = dishes;
+                }
                     getInfo();
                     MessageBox.Show($"Объект десериализован.{Dishes.Count}");
-                }
+                
             }
         }
     }

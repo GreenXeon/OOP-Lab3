@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Laba2
+namespace Laba3
 {
     [Serializable]
     class Salad : Dish

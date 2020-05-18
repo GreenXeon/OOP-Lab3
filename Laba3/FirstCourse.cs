@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Laba2
+namespace Laba3
 {
     [Serializable]
     class FirstCourse : Dish
@@ -16,6 +16,11 @@ namespace Laba2
             this.Price = price;
             this.Calories = calories;
             this.souce = new Souce(souce);
+        }
+
+        public FirstCourse()
+        {
+
         }
 
         public override void GetInfo()

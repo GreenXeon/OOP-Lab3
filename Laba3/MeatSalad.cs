@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Laba2
+namespace Laba3
 {
     [Serializable]
     class MeatSalad : Salad
@@ -20,6 +20,10 @@ namespace Laba2
             this.meat = new Meat(meat);
         }
 
+        public MeatSalad()
+        {
+
+        }
         public override void GetInfo()
         {
             Console.WriteLine($"The meat salad info: name - " + this.Name +
